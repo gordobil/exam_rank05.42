@@ -14,7 +14,7 @@ class searchable_array_bag : public array_bag, public searchable_bag
 		~searchable_array_bag();
 
 		//SEARCH
-		bool	has(int n);
+		bool	has(int n)const;
 };
 
 #endif

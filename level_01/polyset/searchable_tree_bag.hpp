@@ -10,11 +10,11 @@ class searchable_tree_bag : public searchable_bag, public tree_bag
 	public:
 		searchable_tree_bag();
 		searchable_tree_bag(const searchable_tree_bag &copy);
-		searchable_tree_bag &operator=(cnst searchable_tree_bag &copy);
+		searchable_tree_bag &operator=(const searchable_tree_bag &copy);
 		~searchable_tree_bag();
 
 		//SEARCH
-		bool	has(int n);
+		bool	has(int n)const;
 };
 
 #endif
