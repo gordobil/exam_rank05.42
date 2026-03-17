@@ -141,7 +141,7 @@ bigint	operator>>(const bigint &var, int rm){
 }
 
 bigint	operator>>(const bigint &var, const bigint &rm){
-	bigint	ret = var << strToInt(rm.getStr());
+	bigint	ret = var >> strToInt(rm.getStr());
 	return (ret);
 }
 

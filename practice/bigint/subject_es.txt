@@ -1,0 +1,20 @@
+Assignment name: bigint
+Expected files: bigint.hpp bigint.cpp
+------------------------------------------------------------------------------------
+
+En informática, un bignum es un objeto que representa un número de precisión
+arbitraria. Esto es útil cuando se quiere almacenar un número mayor que SIZE_MAX sin
+pérdida de precisión. Esto se logra a menudo almacenando el número como un array o
+una cadena que contiene sus diferentes "partes".
+
+Crea una clase llamada bigint que almacene un entero sin signo de precisión
+arbitrario.
+
+Tu clase debe soportar suma, comparación y "digitshift" (similar a bitshift, pero en
+lugar de desplazar los bits, desplazarás los digitos en base 10, por ejemplo,
+(42 << 3 == 42000) y (1337 >> 2 == 13)).
+
+Tu bigint debe poder imprimirse con el operador << (en base 10), y la salida no debe
+contener ceros a la izquierda.
+
+Encontrarás en este directorio un main que debe funcionar con tu clase.
