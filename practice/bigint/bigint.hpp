@@ -24,6 +24,12 @@ class bigint
 		bigint		&operator>>=(unsigned int b);
 		bigint		&operator>>=(const bigint &b);
 
+		// CALCULATE
+		bigint		&operator+=(const bigint &vb);
+		bigint		&operator+=(unsigned int b);
+		bigint		&operator++(void);
+		bigint		&operator++(int);
+
 		// UTILS
 		void		checkNum(std::string n);
 		std::string	getNum(void)const;
@@ -45,7 +51,9 @@ bigint				operator>>(const bigint &a, unsigned int b);
 bigint				operator>>(const bigint &a, const bigint &b);
 
 // CALCULATE
-//bigint				operator+(const bigint &a, const bigint &b);
+bigint				operator+(const bigint &a, const bigint &b);
+bigint				operator+(const bigint &a, unsigned int b);
+bigint				operator+(unsigned int a, const bigint &b);
 
 // UTILS
 std::string			intToStr(unsigned int n);

@@ -17,10 +17,10 @@ bigint::bigint(unsigned int newN){
 	num = intToStr(newN); }
 
 bigint::bigint(const bigint &copy){
-	*this = copy; }
+	num = copy.getNum(); }
 
 bigint	&bigint::operator=(const bigint &copy){
-	*this = copy;
+	num = copy.getNum();
 	return (*this); }
 
 bigint::~bigint(){}
@@ -47,13 +47,13 @@ int				compare(std::string a, std::string b){
 
 bool			operator<(const bigint &a, const bigint &b){
 	if (compare(a.getNum(), b.getNum()) < 0)
-	return (true);
+		return (true);
 	return (false); }
 
 bool			operator>(const bigint &a, const bigint &b){
 		if (compare(a.getNum(), b.getNum()) > 0)
 		return (true);
-		return (false); }
+	return (false); }
 
 bool			operator<=(const bigint &a, const bigint &b){
 	if (compare(a.getNum(), b.getNum()) <= 0)
@@ -63,17 +63,17 @@ bool			operator<=(const bigint &a, const bigint &b){
 bool			operator>=(const bigint &a, const bigint &b){
 	if (compare(a.getNum(), b.getNum()) >= 0)
 		return (true);
-		return (false); }
+	return (false); }
 
 bool			operator==(const bigint &a, const bigint &b){
 	if (compare(a.getNum(), b.getNum()) == 0)
 		return (true);
-		return (false); }
+	return (false); }
 
 bool			operator!=(const bigint &a, const bigint &b){
 	if (compare(a.getNum(), b.getNum()) != 0)
 		return (true);
-		return (false); }
+	return (false); }
 
 
 // DIGITSHIFT
@@ -120,6 +120,56 @@ bigint			&bigint::operator>>=(const bigint &b){
 
 
 // CALCULATE
+
+bigint			operator+(const bigint &a, const bigint &b){
+	std::string		c;
+	std::string		aStr = a.getNum(), bStr = b.getNum();
+	int				ai = aStr.size() - 1, bi = bStr.size() - 1;
+
+	for (int rest = 0; ai >= 0 || bi >= 0 || rest > 0; ai--, bi--){
+		int aDig = 0;
+		if (ai >= 0)
+			aDig = aStr[ai] - '0';
+		
+		int bDig = 0;
+		if (bi >= 0)
+			bDig = bStr[bi] - '0';
+		
+		int add = aDig + bDig + rest;
+		rest = add / 10;
+		c.insert(c.begin(), (add % 10) + '0');
+	}
+	return (bigint(c));
+}
+
+bigint			operator+(const bigint &a, unsigned int b){
+	return (a + bigint(b));
+}
+
+bigint			operator+(unsigned int a, const bigint &b){
+	return (bigint(a) + b);
+}
+
+bigint			&bigint::operator+=(const bigint &b){
+	*this = *this + b;
+	return (*this);
+}
+
+bigint			&bigint::operator+=(unsigned int b){
+	*this = *this + bigint(b);
+	return (*this);
+}
+
+bigint			&bigint::operator++(void){
+	*this = *this + bigint(1);
+	return (*this);
+}
+
+bigint			&bigint::operator++(int){
+	bigint	*old = this;
+	*this = *this + bigint(1);
+	return (*old);
+}
 
 
 // UTILS

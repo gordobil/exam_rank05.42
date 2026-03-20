@@ -87,6 +87,7 @@ bigint	&bigint::operator+=(const bigint &var){
 	*this = *this + var;
 	return (*this);
 }
+
 bigint	&bigint::operator++(void){
 	*this = *this + bigint(1);
 	return (*this);
