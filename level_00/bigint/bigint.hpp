@@ -4,54 +4,60 @@
 
 #include <iostream>
 #include <sstream>
-#include <algorithm>
 
 class bigint
 {
 	private:
-		std::string	str;
-	
+		std::string	num;
+
 	public:
 		bigint();
-		bigint(unsigned int n);
-		bigint(std::string n);
+		bigint(std::string newN);
+		bigint(unsigned int newN);
 		bigint(const bigint &copy);
-		bigint 		&operator=(const bigint &copy);
+		bigint		&operator=(const bigint &copy);
 		~bigint();
 
-		//UTILS
-		void		checkStr(std::string n);
-		std::string	getStr(void)const;
+		// DIGITSHIFT
+		bigint		&operator<<=(unsigned int b);
+		bigint		&operator<<=(const bigint &b);
+		bigint		&operator>>=(unsigned int b);
+		bigint		&operator>>=(const bigint &b);
 
-		//ALTER
-		bigint		&operator<<=(int add);
-		bigint		&operator<<=(const bigint &add);
-		bigint		&operator>>=(int rm);
-		bigint		&operator>>=(const bigint &rm);
-		bigint		&operator+=(const bigint &var);
+		// CALCULATE
+		bigint		&operator+=(const bigint &vb);
+		bigint		&operator+=(unsigned int b);
 		bigint		&operator++(void);
 		bigint		&operator++(int);
+
+		// UTILS
+		void		checkNum(std::string n);
+		std::string	getNum(void)const;
 };
 
-//NEW BIGINT
-bigint				operator<<(const bigint &var, int add);
-bigint				operator<<(const bigint &var, const bigint &add);
-bigint				operator>>(const bigint &var, int rm);
-bigint				operator>>(const bigint &var, const bigint &rm);
-bigint				operator+(const bigint &a, const bigint &b);
-
-//COMPARE
-bool				operator==(const bigint &a, const bigint &b);
-bool 				operator!=(const bigint &a, const bigint &b);
-bool 				operator>(const bigint &a, const bigint &b);
-bool 				operator>=(const bigint &a, const bigint &b);
-bool 				operator<(const bigint &a, const bigint &b);
-bool 				operator<=(const bigint &a, const bigint &b);
-
-//UTILS
-std::string			intToStr(int n);
-unsigned int		strToInt(std::string str);
+// COMPARE
 int					compare(std::string a, std::string b);
-std::ostream		&operator<<(std::ostream &out, const bigint &var);
+bool				operator<(const bigint &a, const bigint &b);
+bool				operator>(const bigint &a, const bigint &b);
+bool				operator<=(const bigint &a, const bigint &b);
+bool				operator>=(const bigint &a, const bigint &b);
+bool				operator==(const bigint &a, const bigint &b);
+bool				operator!=(const bigint &a, const bigint &b);
+
+// DIGITSHIFT
+bigint				operator<<(const bigint &a, unsigned int b);
+bigint				operator<<(const bigint &a, const bigint &b);
+bigint				operator>>(const bigint &a, unsigned int b);
+bigint				operator>>(const bigint &a, const bigint &b);
+
+// CALCULATE
+bigint				operator+(const bigint &a, const bigint &b);
+bigint				operator+(const bigint &a, unsigned int b);
+bigint				operator+(unsigned int a, const bigint &b);
+
+// UTILS
+std::string			intToStr(unsigned int n);
+unsigned int		strToInt(std::string str);
+std::ostream		&operator<<(std::ostream &out, const bigint &copy);
 
 #endif
