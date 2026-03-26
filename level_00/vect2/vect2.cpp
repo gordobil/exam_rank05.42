@@ -32,19 +32,13 @@ std::ostream	&operator<<(std::ostream &out, const vect2 &copy){
 int				&vect2::operator[](int i){
 	if (i == 0)
 		return (x);
-	else if (i == 1)
-		return (y);
-	else
-		throw std::out_of_range("Index out of range.");
+	return (y);
 }
 
 const int		&vect2::operator[](int i)const{
 	if (i == 0)
 		return (x);
-	else if (i == 1)
-		return (y);
-	else
-		throw std::out_of_range("Index out of range.");
+	return (y);
 }
 
 // COMPARE
