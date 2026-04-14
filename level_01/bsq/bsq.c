@@ -51,6 +51,7 @@ void	solveMap(t_map *m){
 		fputs(m->_map[i], stdout);
 		fputc('\n', stdout);
 	}
+	fputc('\n', stdout);
 }
 
 int	getMap(FILE *fd, t_map *m){
@@ -79,8 +80,7 @@ int	getMap(FILE *fd, t_map *m){
 			return (freeMap(r - 1, m), free(line), -1);
 
 		for (int i = 0; i < m->_cols; ++i){
-			char	c = line[i];
-			if (c != m->_empC && c != m->_obsC)
+			if (line[i] != m->_empC && line[i] != m->_obsC)
 				return (freeMap(r - 1, m), free(line), -1);
 		}
 
@@ -125,7 +125,7 @@ int	checkMap(FILE *fd, t_map *m){
 	return (0);
 }
 
-int	processStream(FILE *fd){
+int	bsq(FILE *fd){
 	t_map	m;
 	
 	if (checkMap(fd, &m) != 0)
@@ -135,23 +135,17 @@ int	processStream(FILE *fd){
 	freeMap(m._rows, &m);
 }
 
-int	processFile(char *file){
-	FILE	*fd = fopen(file, "r");
-
-	if (!fd)
-		return (fputs("\nError processing map.\n", stderr), -1);
-	
-	int	ret = processStream(fd);
-	fputc('\n', stdout);
-	return (fclose(fd), ret);
-}
-
 int	main(int argc, char **argv){
 	if (argc <= 1)
-		return (processStream(stdin));
+		return (bsq(stdin));
 
-	for (int i = 1; i < argc; ++i)
-		processFile(argv[i]);
+	for (int i = 1; i < argc; ++i){
+		FILE	*fd = fopen(argv[i], "r");
+		if (!fd)
+			return (fputs("\nError processing map.\n", stderr), -1);
+		bsq(fd);
+		fclose(fd);
+	}
 
 	return (0);
 }
