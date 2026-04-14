@@ -4,10 +4,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct	s_map {
-	size_t	_rows;
-	size_t	_cols;
+	int		_rows;
+	int		_cols;
 	char	**_map;
 	char	_empC;
 	char	_obsC;

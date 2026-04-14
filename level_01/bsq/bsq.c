@@ -7,10 +7,50 @@ void	freeMap(int r, t_map *m){
 	free(m->_map);
 }
 
-int	solveMap(t_map *m){
-	freeMap(m->_rows, m);
-	fputs ("CLEANED MAP\n", stdout);
+bool	obstacle(t_map *m, int x, int y, int s){
+	for (int i = x; i < (x + s); ++i){
+		for (int j = y; j < (y + s); ++j){
+			if (m->_map[i][j] == m->_obsC)
+				return (1) ;
+		}
+	}
 	return (0);
+}
+
+void	solveMap(t_map *m){
+	int	bestS = 0;
+	int	bestX = 0;
+	int	bestY = 0;
+
+	for (int x = 0; x < m->_rows; ++x){
+		for (int y = 0; y < m->_cols; ++y){
+			int	s = 1;
+			while (x + s <= m->_rows && y + s <= m->_cols){
+				if (obstacle(m, x, y, s))
+					break ;
+				if (s > bestS){
+					bestS = s;
+					bestX = x;
+					bestY = y;
+				}
+				++s;
+			}
+		}
+	}
+
+	if (bestS > 0){
+		for (int x = 0; x < bestS; ++x){
+			for (int y = 0; y < bestS; ++y){
+				m->_map[bestX + x][bestY + y] = m->_fullC;
+			}
+		}
+	}
+
+	fputc('\n', stdout);
+	for (int i = 0; i < m->_rows; ++i){
+		fputs(m->_map[i], stdout);
+		fputc('\n', stdout);
+	}
 }
 
 int	getMap(FILE *fd, t_map *m){
@@ -54,12 +94,12 @@ int	getMap(FILE *fd, t_map *m){
 }
 
 int	checkHeader(FILE *fd, t_map *m){
-	size_t	rows = 0;
+	int		rows = 0;
 	char	e = 0;
 	char	o = 0;
 	char	f = 0;
 
-	int		total = fscanf(fd, " %zu %c %c %c \n", &rows, &e, &o, &f);
+	int		total = fscanf(fd, " %d %c %c %c \n", &rows, &e, &o, &f);
 	if (total != 4 || rows == 0 || e == o || e == f || o == f)
 		return (-1);
 	
@@ -91,7 +131,8 @@ int	processStream(FILE *fd){
 	if (checkMap(fd, &m) != 0)
 		return (fputs("\nInvalid map.\n", stdout), -1);
 	
-	return (solveMap(&m));
+	solveMap(&m);
+	freeMap(m._rows, &m);
 }
 
 int	processFile(char *file){
@@ -111,5 +152,6 @@ int	main(int argc, char **argv){
 
 	for (int i = 1; i < argc; ++i)
 		processFile(argv[i]);
+
 	return (0);
 }
