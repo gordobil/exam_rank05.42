@@ -6,14 +6,13 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct	s_map {
+typedef struct	s_map{
 	int		_rows;
 	int		_cols;
 	char	**_map;
 	char	_empC;
 	char	_obsC;
 	char	_fullC;
-} t_map;
-
+}				t_map;
 
 #endif
