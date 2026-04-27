@@ -91,7 +91,7 @@ int		getMap(FILE *fd, t_map *m){
 		
 		for (int i = 0; i < m->_cols; ++i){
 			if (line[i] != m->_empC && line[i] != m->_obsC)
-				return (freeMap(r - 1, m), free(line), -1);
+				return (freeMap(r, m), free(line), -1);
 		}
 
 		m->_map[r] = (char *)malloc(m->_cols + 1);
